@@ -5,6 +5,7 @@ export function Home() {
   return (
     <Container>
       <Profile />
+      teste
     </Container>
   )
 }
