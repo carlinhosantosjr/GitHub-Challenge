@@ -10,7 +10,9 @@ border-radius: 12px;
 margin-top: -100px;
 
 img {
-  margin: auto;
+  border-radius: 50px;
+  width: 220px;
+  height: 220px;
   padding: 35px;
 }
 `
@@ -34,7 +36,7 @@ h1 {
   font-weight: bold;
 }
 
-span {
+a {
   display: flex;
   align-items: center;
   color: ${props => props.theme.blue};

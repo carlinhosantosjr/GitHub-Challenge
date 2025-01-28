@@ -5,40 +5,48 @@ import {
   HeaderProfile, InfoContainer,
   UserGroupStyled,
 } from './styles'
-import avatarTeste from '../../../../assets/avatar-teste.svg'
 import { faArrowUpRightFromSquare, faBuilding, faUserGroup } from
   '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { useContext } from 'react'
+import { UserContext } from '../../../../contexts/UserContext'
 
 export function Profile() {
+  const { userInfo } = useContext(UserContext)
+
   return (
     <Container>
-      <img src={avatarTeste} alt="" />
+      <img src={userInfo.avatarUrl} alt="" />
       <InfoContainer>
         <HeaderProfile>
-          <h1>Cameron Williamson</h1>
-          <span>GITHUB<ArrowUpStyled icon={faArrowUpRightFromSquare} /></span>
+          <h1>{userInfo.name}</h1>
+          <a href={userInfo.htmlUrl} target="_blank" rel="noopener noreferrer">
+            GITHUB
+            <ArrowUpStyled icon={faArrowUpRightFromSquare} />
+          </a>
         </HeaderProfile>
         <BioContainer>
           <span>
-            Tristique volutpat pulvinar vel massa,
-            pellentesque egestas. Eu viverra massa
-            quam dignissim aenean malesuada suscipit.
-            Nunc, volutpat pulvinar vel mass.
+            {userInfo.bio}
           </span>
         </BioContainer>
         <FooterContainer>
           <div>
             <GitHubStyled icon={faGithub} />
-            <span>cameronwll</span>
+            <span>{userInfo.login}</span>
           </div>
-          <div>
-            <BuildingStyled icon={faBuilding} />
-            <span>Rocketseat</span>
-          </div>
+          {userInfo.company
+            ? (
+              <div>
+                <BuildingStyled icon={faBuilding} />
+                <span>{userInfo.company}</span>
+              </div>
+              )
+            : ''}
+
           <div>
             <UserGroupStyled icon={faUserGroup} />
-            <span>32 seguidores</span>
+            <span>{userInfo.followers} seguidores</span>
           </div>
         </FooterContainer>
       </InfoContainer>
