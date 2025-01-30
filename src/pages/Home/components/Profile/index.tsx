@@ -12,41 +12,44 @@ import { useContext } from 'react'
 import { UserContext } from '../../../../contexts/UserContext'
 
 export function Profile() {
-  const { userInfo } = useContext(UserContext)
-
+  const { user } = useContext(UserContext)
+  // console.log(user)
   return (
     <Container>
-      <img src={userInfo.avatarUrl} alt="" />
+      <img src={user.userInfo.avatarUrl} alt="" />
       <InfoContainer>
         <HeaderProfile>
-          <h1>{userInfo.name}</h1>
-          <a href={userInfo.htmlUrl} target="_blank" rel="noopener noreferrer">
+          <h1>{user.userInfo.name}</h1>
+          <a
+            href={user.userInfo.htmlUrl}
+            target="_blank" rel="noopener noreferrer"
+          >
             GITHUB
             <ArrowUpStyled icon={faArrowUpRightFromSquare} />
           </a>
         </HeaderProfile>
         <BioContainer>
           <span>
-            {userInfo.bio}
+            {user.userInfo.bio}
           </span>
         </BioContainer>
         <FooterContainer>
           <div>
             <GitHubStyled icon={faGithub} />
-            <span>{userInfo.login}</span>
+            <span>{user.userInfo.login}</span>
           </div>
-          {userInfo.company
+          {user.userInfo.company
             ? (
               <div>
                 <BuildingStyled icon={faBuilding} />
-                <span>{userInfo.company}</span>
+                <span>{user.userInfo.company}</span>
               </div>
               )
             : ''}
 
           <div>
             <UserGroupStyled icon={faUserGroup} />
-            <span>{userInfo.followers} seguidores</span>
+            <span>{user.userInfo.followers} seguidores</span>
           </div>
         </FooterContainer>
       </InfoContainer>

@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
 import { api } from '../lib/axios'
 
-interface userProps {
+interface userInfoProps {
   name: string,
   login: string,
   followers: number,
@@ -11,8 +11,30 @@ interface userProps {
   bio: string
 }
 
+export interface postCardProps {
+  key: number,
+  body: string,
+  title: string
+  created_at: string
+}
+
+export interface postProps {
+  key: number,
+  title: string,
+  comments: string,
+  body: string,
+  created_at: string,
+  number: number
+}
+
+interface userProps {
+  userInfo: userInfoProps,
+  posts: postProps[]
+}
+
 interface UserContextType {
-  userInfo: userProps
+  user: userProps
+  fetchPosts: (query:string) =>void
 }
 
 interface UserProviderProps {
@@ -22,9 +44,20 @@ interface UserProviderProps {
 export const UserContext = createContext({} as UserContextType)
 
 export function UserProvider({ children }: UserProviderProps) {
-  const [userInfo, setUserInfo] = useState<userProps>({} as userProps)
+  const [user, setUser] = useState<userProps>({
+    userInfo: {
+      name: '',
+      login: '',
+      followers: 0,
+      avatarUrl: '',
+      htmlUrl: '',
+      company: '',
+      bio: '',
+    },
+    posts: [],
+  })
 
-  const fetchUser = async () => {
+  const fetchUserInfo = async () => {
     const response = await api.get('/users/carlinhosantosjr')
     const {
       name, login, followers,
@@ -34,25 +67,60 @@ export function UserProvider({ children }: UserProviderProps) {
       bio,
     } = response.data
 
-    setUserInfo({
-      name,
-      login,
-      followers,
-      avatarUrl,
-      htmlUrl,
-      company,
-      bio,
+    setUser((state) => ({
+      ...state,
+      userInfo: {
+        name,
+        login,
+        followers,
+        avatarUrl,
+        htmlUrl,
+        company,
+        bio,
+      },
+    }))
+  }
+
+  const fetchPosts = async (query?: string) => {
+    const searchQuery = query
+      ? `${query} user:carlinhosantosjr repo:GitHub-Challenge`
+      : 'user:carlinhosantosjr repo:GitHub-Challenge'
+
+    const response = await
+    api.get('/search/issues', {
+      params: {
+        q: searchQuery,
+      },
     })
-    console.log(response.data)
+    const posts = await response.data.items
+
+    const formattedPosts = await posts
+      .filter((post:postProps) => post.body)
+      .map((post:postProps) => {
+        return {
+          key: post.number,
+          title: post.title,
+          comments: post.comments,
+          body: post.body,
+          created_at: post.created_at,
+          number: post.number,
+        }
+      })
+    setUser((state) => ({
+      ...state,
+      posts: formattedPosts,
+    }))
   }
 
   useEffect(() => {
-    fetchUser()
+    fetchUserInfo()
+    fetchPosts()
   }, [])
 
   return (
     <UserContext.Provider value={{
-      userInfo,
+      user,
+      fetchPosts,
     }}
     >
       {children}

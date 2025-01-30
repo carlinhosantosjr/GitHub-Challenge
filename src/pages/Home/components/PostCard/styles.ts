@@ -1,38 +1,44 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-display: grid;
-grid-template-columns: 5fr 1fr;
+display: flex;
+flex-direction: column;
 background-color: ${props => props.theme['base-post']};
 width: 416px;
 height: 260px;
 border-radius: 8px;
 padding: 30px;
-overflow: hidden;
-text-overflow: ellipsis;
-gap: 1.5rem;
+gap: 1rem;
 border: 2px solid transparent;
 transition: border 0.3s;
 cursor: pointer;
-//word-break: break-all;
 
 &:hover {
   border-color: ${props => props.theme['base-label']};
 }
 
+p {
+  display: flex;
+  color: ${props => props.theme['base-text']};
+}
+`
+
+export const HeaderCard = styled.div`
+display: flex;
+justify-content: space-between;
+
 h3 {
+flex: 4;
   color: ${props => props.theme['base-subtitle']};
 }
 
 span {
+  flex: 1;
   color: ${props => props.theme['base-span']};
   font-size: 14px;
 }
-
-p {
-  grid-column: span 2;
-  display: flex;
-  color: ${props => props.theme['base-text']};
-  font: 12px;
-}
+`
+export const MarkDownContainer = styled.div`
+font-size: 12x;
+color: ${props => props.theme['base-text']};
 `
