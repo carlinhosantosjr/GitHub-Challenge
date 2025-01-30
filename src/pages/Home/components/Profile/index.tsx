@@ -5,40 +5,51 @@ import {
   HeaderProfile, InfoContainer,
   UserGroupStyled,
 } from './styles'
-import avatarTeste from '../../../../assets/avatar-teste.svg'
 import { faArrowUpRightFromSquare, faBuilding, faUserGroup } from
   '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { useContext } from 'react'
+import { UserContext } from '../../../../contexts/UserContext'
 
 export function Profile() {
+  const { user } = useContext(UserContext)
+  // console.log(user)
   return (
     <Container>
-      <img src={avatarTeste} alt="" />
+      <img src={user.userInfo.avatarUrl} alt="" />
       <InfoContainer>
         <HeaderProfile>
-          <h1>Cameron Williamson</h1>
-          <span>GITHUB<ArrowUpStyled icon={faArrowUpRightFromSquare} /></span>
+          <h1>{user.userInfo.name}</h1>
+          <a
+            href={user.userInfo.htmlUrl}
+            target="_blank" rel="noopener noreferrer"
+          >
+            GITHUB
+            <ArrowUpStyled icon={faArrowUpRightFromSquare} />
+          </a>
         </HeaderProfile>
         <BioContainer>
           <span>
-            Tristique volutpat pulvinar vel massa,
-            pellentesque egestas. Eu viverra massa
-            quam dignissim aenean malesuada suscipit.
-            Nunc, volutpat pulvinar vel mass.
+            {user.userInfo.bio}
           </span>
         </BioContainer>
         <FooterContainer>
           <div>
             <GitHubStyled icon={faGithub} />
-            <span>cameronwll</span>
+            <span>{user.userInfo.login}</span>
           </div>
-          <div>
-            <BuildingStyled icon={faBuilding} />
-            <span>Rocketseat</span>
-          </div>
+          {user.userInfo.company
+            ? (
+              <div>
+                <BuildingStyled icon={faBuilding} />
+                <span>{user.userInfo.company}</span>
+              </div>
+              )
+            : ''}
+
           <div>
             <UserGroupStyled icon={faUserGroup} />
-            <span>32 seguidores</span>
+            <span>{user.userInfo.followers} seguidores</span>
           </div>
         </FooterContainer>
       </InfoContainer>
