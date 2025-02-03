@@ -11,33 +11,50 @@ import {
 } from
   '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { postInfoProps } from '../../../contexts/UserContext'
+import { useNavigate } from 'react-router-dom'
+import { calculateDate } from '../../../utils/calculateDate'
 
-export function InfoPost() {
+export function InfoPost(data : postInfoProps) {
+  const navigate = useNavigate()
+  function handleClickBack() {
+    navigate('/')
+  }
   return (
-    <Container>
-      <HeaderInfo>
-        <span><ChevronLeft icon={faChevronLeft} />VOLTAR</span>
-        <span>VER NO GITHUB
-          <ArrowUpRight icon={faArrowUpRightFromSquare} />
-        </span>
-      </HeaderInfo>
-      <TitleContainer>
-        <h2>JavaScript data types and data structures</h2>
-      </TitleContainer>
-      <FooterInfo>
-        <div>
-          <GithubIcon icon={faGithub} />
-          <span>cameronwll</span>
-        </div>
-        <div>
-          <CalendarDayIcon icon={faCalendarDay} />
-          <span>Há 1 dia</span>
-        </div>
-        <div>
-          <CommentIcon icon={faComment} />
-          <span>5 comentários</span>
-        </div>
-      </FooterInfo>
-    </Container>
+    <>
+      {data
+        ? (
+          <Container>
+            <HeaderInfo>
+              <span onClick={handleClickBack}>
+                <ChevronLeft icon={faChevronLeft} />VOLTAR
+              </span>
+              <a href={data.html_url} target="_blank" rel="noopener noreferrer">
+                <span>VER NO GITHUB
+                  <ArrowUpRight icon={faArrowUpRightFromSquare} />
+                </span>
+              </a>
+            </HeaderInfo>
+            <TitleContainer>
+              <h2>{data.title}</h2>
+            </TitleContainer>
+            <FooterInfo>
+              <div>
+                <GithubIcon icon={faGithub} />
+                <span>{data.user}</span>
+              </div>
+              <div>
+                <CalendarDayIcon icon={faCalendarDay} />
+                <span>Há {calculateDate(data.created_at)} dias</span>
+              </div>
+              <div>
+                <CommentIcon icon={faComment} />
+                <span>{data.comments} comentários</span>
+              </div>
+            </FooterInfo>
+          </Container>
+          )
+        : ''}
+    </>
   )
 }

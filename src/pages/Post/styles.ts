@@ -4,14 +4,14 @@ export const Container = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
-padding-bottom: 100px;
+padding-bottom: 6.25rem;
 color: white;
 gap: 3rem;
 `
 
 export const MarkdownContainer = styled.div`
-max-width: 850px;
-padding: 0px 20px 200px 20px;
+max-width: 53.125rem;
+padding: 0 1.25rem 12.5rem 1.25rem;
 
 text-align: justify;
 color: ${props => props.theme['base-text']};

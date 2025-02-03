@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.header`
 display: flex;
-height: 296px;
+height: 18.5rem;
 justify-content: space-between;
 background: ${props => props.theme['base-background']};
 `
@@ -29,7 +29,7 @@ background: radial-gradient(
     );
 
      img:nth-of-type(2) { 
-      margin-top:-75px;
-      margin-left:-35px;
+      margin-top:-4.688rem;
+      margin-left:-2.188rem;
     }
 `

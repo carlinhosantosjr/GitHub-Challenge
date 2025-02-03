@@ -7,6 +7,7 @@ import { UserContext } from '../../contexts/UserContext'
 
 export function Home() {
   const { user } = useContext(UserContext)
+
   return (
     <Container>
       <Profile />
@@ -19,7 +20,8 @@ export function Home() {
         {user.posts.length >= 1
           ? user.posts.map((post) => (
             <PostCard
-              key={post.key}
+              key={post.number}
+              number={post.number}
               title={post.title}
               body={post.body}
               created_at={post.created_at}
