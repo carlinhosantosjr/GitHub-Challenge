@@ -12,10 +12,23 @@ interface userInfoProps {
 }
 
 export interface postCardProps {
-  key: number,
+  number: number,
   body: string,
   title: string
   created_at: string
+}
+
+export interface postUser {
+  login: string
+}
+
+export interface postInfoProps {
+  comments: string,
+  created_at: string,
+  html_url: string,
+  key: number,
+  title: string,
+  user: string,
 }
 
 export interface postProps {
@@ -24,7 +37,13 @@ export interface postProps {
   comments: string,
   body: string,
   created_at: string,
-  number: number
+  number: number,
+  html_url: string,
+  user: postUser
+}
+
+export interface postData {
+  data: postProps
 }
 
 interface userProps {
@@ -104,6 +123,8 @@ export function UserProvider({ children }: UserProviderProps) {
           body: post.body,
           created_at: post.created_at,
           number: post.number,
+          html_url: post.html_url,
+          user: post.user.login,
         }
       })
     setUser((state) => ({
@@ -111,6 +132,7 @@ export function UserProvider({ children }: UserProviderProps) {
       posts: formattedPosts,
     }))
   }
+  // console.log(user)
 
   useEffect(() => {
     fetchUserInfo()

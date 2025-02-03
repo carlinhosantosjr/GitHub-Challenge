@@ -1,5 +1,7 @@
 import { Container, HeaderCard, MarkDownContainer } from './styles'
 import { postCardProps } from '../../../../contexts/UserContext'
+import { useNavigate } from 'react-router-dom'
+import { calculateDate } from '../../../../utils/calculateDate'
 
 export function PostCard(data:postCardProps) {
   const newText = truncateByLetters(data.body, 200)
@@ -11,17 +13,13 @@ export function PostCard(data:postCardProps) {
     return text
   }
 
-  function calculateDate(date:string) {
-    const postDate = new Date(date)
-    const currentDate = new Date()
-    const differenceMiliseconds = currentDate.getTime() - postDate.getTime()
-    const diferencaEmDias =
-    Math.floor(differenceMiliseconds / (1000 * 60 * 60 * 24))
-    return diferencaEmDias.toString()
+  const navigate = useNavigate()
+  function handleClickOnCard(data:postCardProps) {
+    navigate(`post/${data.number}`)
   }
 
   return (
-    <Container>
+    <Container onClick={() => handleClickOnCard(data)}>
       <HeaderCard>
         <h3>{data.title}</h3>
         <span>Há {calculateDate(data.created_at)} dias</span>

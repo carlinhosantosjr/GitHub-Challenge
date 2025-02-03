@@ -13,7 +13,7 @@ import { UserContext } from '../../../../contexts/UserContext'
 
 export function Profile() {
   const { user } = useContext(UserContext)
-  // console.log(user)
+
   return (
     <Container>
       <img src={user.userInfo.avatarUrl} alt="" />

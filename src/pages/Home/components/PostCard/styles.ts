@@ -4,10 +4,10 @@ export const Container = styled.div`
 display: flex;
 flex-direction: column;
 background-color: ${props => props.theme['base-post']};
-width: 416px;
-height: 260px;
+width: 26rem;
+height: 16.25rem;
 border-radius: 8px;
-padding: 30px;
+padding: 1.875rem;
 gap: 1rem;
 border: 2px solid transparent;
 transition: border 0.3s;
@@ -35,10 +35,10 @@ flex: 4;
 span {
   flex: 1;
   color: ${props => props.theme['base-span']};
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 `
 export const MarkDownContainer = styled.div`
-font-size: 12x;
+font-size: 1rem;
 color: ${props => props.theme['base-text']};
 `
